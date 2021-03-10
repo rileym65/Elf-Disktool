@@ -846,7 +846,6 @@ void process_directory(FILDES* dir,char* path) {
         }
       filename[j] = 0;
       if (fixed) {
-printf("seek: %ld\n",pos);
         fs_seek(dir, pos, 0);
         fs_write(buffer, 32, dir);
         write_sector(&(dir->dta),dir->current_sector);
