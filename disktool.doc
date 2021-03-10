@@ -1,0 +1,113 @@
+!addr byte byte ...
+     Write a sequence of bytes into the sector edit buffer.
+
+CD path
+     This command will change the current working directory.  If path is
+     preceeded by a leading / then the path is relative to the root directory
+     otherwise if no leading / is present then the path is relative to the
+     current directory.  the .. notation for one directory up is currently
+     not supported.
+
+CHAIN lump
+     This command will show the lump numbers in the chain starting with lump
+     'lump'.  lump is specified in hex.
+
+COPY src dst
+     This command will copy files between the host filesystem and the Elf/OS
+     disk.  To distinguish a host file, enclose the name in square brackes.
+     Example:
+        COPY [data/zork1.dat] ZORK1.Z3
+        Will copy the zork1.dat file located on the host filesystem to the
+        current directory of the Elf/OS disk.
+     Note: full pathnames are not yet supported for the Elf/OS disk, therefore
+           you must use CD to change into the diretory you wish to copy 
+           from/to.  Full pathnames are however supported in host filenames.
+
+DELETE file
+     This command will delete the specified file.
+
+DIR
+     Show the contents of the current directory.  It is not yet supported to
+     list the contents of a directory other than the current directory.  The
+     following switches may also be used:
+          -L - Show starting lump of file
+          -S - Show size of file
+
+DUMP file
+     Display the contents of a file as a hex dump
+
+EXTRACT file
+     This command will extract the kernel image from the Elf/OS disk and write
+     it as a binary file on the host filesystem
+
+FSGEN size
+     Generate a blank file system on the Elf/OS disk.  size specifies how
+     many sectors (in decimal) the resulting image will have.
+
+HELP
+     Show the available commands
+
+MD dirname
+     This command will create a new subdirectory underneath the current
+     directory.  Full pathnames are not yet supported for this command.
+
+PWD
+     Print the name of the current working directory
+
+RD dir
+     This command will remove a directory from the current directory.  The
+     directory can only be removed if it is empty.
+
+RENAME old new
+     This command will rename a file.  Since the new file is a rename of the
+     old file, a directory path is invalid in the new name.  It is however
+     allowed to have a full path for old.  The file will be renamed in the
+     specified directory.  It is not moved while being renamed.
+
+SECTOR num
+     Display a hex dump of the specified sector.  'num' is specified in hex.
+     The sector is also loaded into the sector edit buffer.
+
+SHOWSEC
+     Display the sector currently loaded into the sector edit buffer.
+
+STAT
+     Show the current statistics for the Elf/OS disk.
+
+SYS file
+     This command will take the specified binary file and install it as the
+     kernel on the Elf/OS disk.
+
+TYPE file
+     This command will type out the ascii contents of the specified file.
+
+WRSEC
+     Write sector buffer back to disk.
+
+QUIT
+     This will quit the disktool.
+
+Notes: Only the CD command can accept full pathnames.  All other file/directory
+       arguments must be single names.
+
+       All numbers requested from the user must be in hex.
+
+       When disktool is started, it automatically opens disk1.ide for the 
+       Elf/OS disk.  You can specify another disk device/file on the command
+       line when starting disktool.
+
+Planned Enhancements:
+1.  Allow for full pathnames in all file/directory arguments.
+2.  Allow for the .. syntax in directory paths
+*** Allow copying where source and destination are on the Elf/OS disk
+*** Allow for overwriting an existing file
+*** Add a RENAME command
+6.  Add a MOVE command
+7.  Multiple disk support. This would facilitate transfering a file from one
+    Elf/OS disk to another.
+*** FSGEN - Ability to generate the Elf/OS filesystem on a new device.
+*** SYS - Ability to copy a new kernel onto an Elf/OS disk.
+*** SEDIT - Ability to directly edit disk sectors.
+11. DSKCHK - Ability to scan the Elf/OS disk for allocation errors.
+
+
