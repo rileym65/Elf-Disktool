@@ -16,6 +16,9 @@ $(PROJECT): $(OBJS)
 .c.o:
 	$(CC) $(CFLAGS) $(INCDIR) $(INCS) $(DEFS) -c $<
 
+install: disktool
+	cp disktool ../..
+
 clean:
 	-rm *.o
 	-rm $(PROJECT)
